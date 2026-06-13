@@ -51,3 +51,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: deploy/
           server-dir: /
+          security: strict
