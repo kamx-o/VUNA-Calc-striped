@@ -48,7 +48,7 @@ jobs:
           HOST: ${{ secrets.FTP_HOST }}
           USER: ${{ secrets.FTP_USERNAME }}
           PASS: ${{ secrets.FTP_PASSWORD }}
-        run: printf 'import ftplib, os, sys\ntry:\n ftp = ftplib.FTP()\n ftp.connect(os.environ["HOST"], 21, timeout=10)\n print("Connected OK")\n print("Server:", ftp.getwelcome())\n ftp.login(os.environ["USER"], os.environ["PASS"])\n print("Login OK")\n print("PWD:", ftp.pwd())\n ftp.quit()\nexcept Exception as e:\n print("Error:", e)\n sys.exit(1)\n' | python3
+        run: printf 'import ftplib, os, sys\ntry:\n ftp = ftplib.FTP_TLS()\n ftp.connect(os.environ["HOST"], 21, timeout=10)\n print("Connected OK")\n print("Server:", ftp.getwelcome())\n ftp.auth()\n ftp.login(os.environ["USER"], os.environ["PASS"])\n ftp.prot_p()\n print("Login OK")\n print("PWD:", ftp.pwd())\n ftp.quit()\nexcept Exception as e:\n print("Error:", e)\n sys.exit(1)\n' | python3
       - name: Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.0
         with:
@@ -57,3 +57,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: deploy/
           server-dir: public_html/
+          security: strict
