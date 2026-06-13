@@ -49,21 +49,21 @@ jobs:
           USER: ${{ secrets.FTP_USERNAME }}
           PASS: ${{ secrets.FTP_PASSWORD }}
         run: |
-          python3 << 'EOF'
+          python3 -c '
 import ftplib, os
 try:
     ftp = ftplib.FTP()
-    ftp.connect(os.environ['HOST'], 21, timeout=10)
-    print('Connected OK')
-    print('Server:', ftp.getwelcome())
-    ftp.login(os.environ['USER'], os.environ['PASS'])
-    print('Login OK')
-    print('PWD:', ftp.pwd())
+    ftp.connect(os.environ["HOST"], 21, timeout=10)
+    print("Connected OK")
+    print("Server:", ftp.getwelcome())
+    ftp.login(os.environ["USER"], os.environ["PASS"])
+    print("Login OK")
+    print("PWD:", ftp.pwd())
     ftp.quit()
 except Exception as e:
-    print(f'Error: {e}')
+    print("Error:", e)
     exit(1)
-EOF
+'
       - name: Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.0
         with:
