@@ -43,12 +43,13 @@ jobs:
           cp index.html deploy/
           cp -r assets deploy/
 
-      - name: Upload via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.0
+      - name: Deploy via SSH
+        uses: easingthemes/ssh-deploy@v5.1.0
         with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: deploy/
-          server-dir: public_html/
-          security: loose
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: -rlgoDzvc -i
+          SOURCE: deploy/
+          REMOTE_HOST: ${{ secrets.FTP_HOST }}
+          REMOTE_USER: ${{ secrets.FTP_USERNAME }}
+          TARGET: public_html/
+          EXCLUDE: ""
