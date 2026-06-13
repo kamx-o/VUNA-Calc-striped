@@ -44,9 +44,9 @@ jobs:
           cp -r assets deploy/
 
       - name: Upload via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.0
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
-          server: chikamso.vudse26.cloud
+          server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: deploy/
