@@ -37,14 +37,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Prepare deploy files
+        run: |
+          mkdir -p deploy
+          cp index.html deploy/
+          cp -r assets deploy/
+
       - name: Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.0
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./
+          local-dir: deploy/
           server-dir: /
-          include: |
-            index.html
-            assets/**
