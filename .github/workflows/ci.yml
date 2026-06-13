@@ -43,18 +43,11 @@ jobs:
           cp index.html deploy/
           cp -r assets deploy/
 
-      - name: Debug FTP connection
-        env:
-          HOST: ${{ secrets.FTP_HOST }}
-          USER: ${{ secrets.FTP_USERNAME }}
-          PASS: ${{ secrets.FTP_PASSWORD }}
-        run: printf 'import ftplib, os, sys\nftp = ftplib.FTP_TLS()\nftp.connect(os.environ["HOST"], 21, timeout=10)\nprint("Step 1: Connected")\nprint("Banner:", ftp.getwelcome())\nprint("Step 2: Sending auth...")\nftp.auth()\nprint("Step 3: Auth ok, logging in...")\nftp.login(os.environ["USER"], os.environ["PASS"])\nprint("Step 4: Login ok")\nftp.prot_p()\nprint("Step 5: Prot_p ok")\nprint("PWD:", ftp.pwd())\nftp.quit()\n' | python3 || printf 'import ftplib, os, sys\nftp = ftplib.FTP()\nftp.connect(os.environ["HOST"], 21, timeout=10)\nprint("Plain FTP connected")\nftp.login(os.environ["USER"], os.environ["PASS"])\nprint("Plain login ok")\nftp.quit()\n' | python3
       - name: Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.0
         with:
-          server: ${{ secrets.FTP_HOST }}
+          server: chikamso.vudse26.cloud
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: deploy/
           server-dir: public_html/
-          security: strict
