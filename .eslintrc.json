@@ -7,7 +7,7 @@
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "ignorePatterns": ["assets/js/bootstrap.min.js"],
+  "ignorePatterns": ["calculator/assets/js/bootstrap.min.js"],
   "rules": {
     "no-unused-vars": ["warn", { "vars": "local", "args": "none" }],
     "no-undef": "error",
