@@ -5,10 +5,10 @@
   "description": "Calculator created by Set 2025/26 Software Engineering",
   "scripts": {
     "start": "npx serve .",
-    "lint": "eslint assets/js/**.js",
+    "lint": "eslint calculator/assets/js/**.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint:fix": "eslint assets/js/**.js --fix"
+    "lint:fix": "eslint calculator/assets/js/**.js --fix"
   },
   "devDependencies": {
     "eslint": "^8.56.0",
