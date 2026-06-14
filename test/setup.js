@@ -7,7 +7,7 @@ document.body.innerHTML = `
 const fs = require("fs");
 const path = require("path");
 
-const scriptPath = path.resolve(__dirname, "../assets/js/script.js");
+const scriptPath = path.resolve(__dirname, "../calculator/assets/js/script.js");
 const scriptContent = fs.readFileSync(scriptPath, "utf8");
 
 // Replace let with var so state variables become global object properties
